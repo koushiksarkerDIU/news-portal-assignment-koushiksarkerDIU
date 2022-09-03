@@ -27,27 +27,28 @@ setAllMenu()
 // loadAllProducts()
 
 const loadNewsDetails = async category_id => {
-    const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    // console.log(data.data.length);
-    const allNews = data.data;
-    const cardContainer = document.getElementById('card-container');
-    const totalNewsNumber = document.getElementById('total-news-number')
-    totalNewsNumber.innerText = data.data.length;
-    cardContainer.textContent = '';
-    allNews.forEach(news => {
-        // console.log(news)
-        const { title, details, author, total_view, thumbnail_url, rating } = news;
-        // console.log(details);
-        const cardDiv = document.createElement('div');
-        cardDiv.innerHTML = ` 
+    try {
+        const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        // console.log(data.data.length);
+        const allNews = data.data;
+        const cardContainer = document.getElementById('card-container');
+        const totalNewsNumber = document.getElementById('total-news-number')
+        totalNewsNumber.innerText = data.data.length;
+        cardContainer.textContent = '';
+        allNews.forEach(news => {
+            // console.log(news)
+            const { title, details, author, total_view, thumbnail_url, rating } = news;
+            // console.log(details);
+            const cardDiv = document.createElement('div');
+            cardDiv.innerHTML = ` 
         <div class="card lg:card-side bg-base-100 shadow-xl m-3 p-2">
             <figure><img  src="${thumbnail_url}" alt="Album"></figure>
             <div class="card-body">
                 <h2 class="card-title">${title}</h2>
                 <p>${details.length > 350 ? details.slice(0, 350) + '...' : details}</p>
-                <div class="flex justify-between">
+                <div class="flex justify-between flex-col md:flex-row">
                     <div class="flex items-center">
                         <img class="w-10 h-10 rounded-full mr-4" src="${author.img}">
                         <div class="text-sm">
@@ -67,8 +68,13 @@ const loadNewsDetails = async category_id => {
                 </div>
             </div>
         </div>`;
-        cardContainer.appendChild(cardDiv);
-    })
+            cardContainer.appendChild(cardDiv);
+        })
+
+    }
+    catch (error) {
+        console.log(error)
+    }
 
 }
 
