@@ -33,9 +33,14 @@ const loadNewsDetails = async category_id => {
         const data = await res.json();
         // console.log(data.data.length);
         const allNews = data.data;
+        const totalNewsNumber = document.getElementById('total-news-number');
+        if (allNews.length >= 1) {
+            totalNewsNumber.innerText = allNews.length;
+        }
+        else {
+            totalNewsNumber.innerText = 'No News'
+        }
         const cardContainer = document.getElementById('card-container');
-        const totalNewsNumber = document.getElementById('total-news-number')
-        totalNewsNumber.innerText = data.data.length;
         cardContainer.textContent = '';
         allNews.forEach(news => {
             // console.log(news)
