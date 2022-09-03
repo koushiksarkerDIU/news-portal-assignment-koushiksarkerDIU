@@ -1,7 +1,13 @@
 const loadAllProducts = async () => {
-    const response = await fetch("https://openapi.programming-hero.com/api/news/categories");
-    const data = await response.json();
-    return data;
+    const url = "https://openapi.programming-hero.com/api/news/categories"
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+    }
+    catch (error) {
+        console.log(error);
+    }
 }
 
 const setAllMenu = async () => {
