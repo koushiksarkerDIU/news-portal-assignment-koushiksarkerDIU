@@ -24,14 +24,14 @@ const loadNewsDetails = async category_id => {
     const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`;
     const res = await fetch(url);
     const data = await res.json();
-    // console.log(data.data);
+    console.log(data.data.length);
     const allNews = data.data;
     const cardContainer = document.getElementById('card-container');
     cardContainer.textContent = '';
     allNews.forEach(news => {
         // console.log(news)
         const { title, details, author, total_view, thumbnail_url, rating } = news;
-        // console.log(details.length);
+        // console.log(details);
         const cardDiv = document.createElement('div');
         cardDiv.innerHTML = ` 
         <div class="card lg:card-side bg-base-100 shadow-xl m-3 p-2">
@@ -74,3 +74,4 @@ const showModal = (title, authorName, publishedDate) => {
     `;
 }
 
+loadNewsDetails('01')
