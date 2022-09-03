@@ -31,7 +31,7 @@ const loadNewsDetails = async category_id => {
     allNews.forEach(news => {
         // console.log(news)
         const { title, details, author, total_view, thumbnail_url, rating } = news;
-        console.log(details.length);
+        // console.log(details.length);
         const cardDiv = document.createElement('div');
         cardDiv.innerHTML = ` 
         <div class="card lg:card-side bg-base-100 shadow-xl m-3 p-2">
@@ -43,18 +43,17 @@ const loadNewsDetails = async category_id => {
                     <div class="flex items-center">
                         <img class="w-10 h-10 rounded-full mr-4" src="${author.img}">
                         <div class="text-sm">
-                            <p class="text-gray-900 leading-none font-semibold">${author ? author.name : 'N/A'}</p>
-                            <p class="text-gray-600">${author ? author.published_date.slice(0, 10) : 'N/A'}</p>
+                            <p class="text-gray-900 leading-none font-semibold">${author.name ? author.name : 'N/A'}</p>
                         </div>
                     </div>
                     <div>
-                        <p class="font-bold"><i class="fa-solid fa-eye"></i> ${total_view} </p>
+                        <p class="font-bold"><i class="fa-solid fa-eye"></i> ${total_view ? total_view : 'N/A'} </p>
                     </div>
                     <div>
                         <p><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i> </p>
                     </div>
                     <div>
-                        <p> ${rating.number} </p>
+                        <label for="my-modal-3" class="btn modal-button" onclick="showModal('${title}','${author.name ? author.name : 'N/A'}' , '${author.published_date ? author.published_date : 'N/A'}')"><i class="fa-solid fa-arrow-right"></i></label>
                     </div>
                     
                 </div>
@@ -63,5 +62,15 @@ const loadNewsDetails = async category_id => {
         cardContainer.appendChild(cardDiv);
     })
 
+}
+
+const showModal = (title, authorName, publishedDate) => {
+    // console.log(title, authorName, publishedDate)
+    const modalBody = document.getElementById('modal-body');
+    modalBody.innerHTML = `
+    <h3 class="text-lg font-bold">${title}</h3>
+    <p class="py-4">Author Name : ${authorName}</p>
+    <p class="py-4">Published Date & Time : ${publishedDate}</p>
+    `;
 }
 
