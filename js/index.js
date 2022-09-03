@@ -24,9 +24,11 @@ const loadNewsDetails = async category_id => {
     const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`;
     const res = await fetch(url);
     const data = await res.json();
-    console.log(data.data.length);
+    // console.log(data.data.length);
     const allNews = data.data;
     const cardContainer = document.getElementById('card-container');
+    const totalNewsNumber = document.getElementById('total-news-number')
+    totalNewsNumber.innerText = data.data.length;
     cardContainer.textContent = '';
     allNews.forEach(news => {
         // console.log(news)
