@@ -33,6 +33,10 @@ const loadNewsDetails = async category_id => {
         const data = await res.json();
         // console.log(data.data.length);
         const allNews = data.data;
+        allNews.sort((a, b) => {
+            return b.total_view - a.total_view
+        })
+        console.log(allNews)
         const totalNewsNumber = document.getElementById('total-news-number');
         if (allNews.length >= 1) {
             totalNewsNumber.innerText = allNews.length;
